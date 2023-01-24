@@ -1,0 +1,45 @@
+<div class="row mt-3">
+    <div class="col-lg-6">
+        <h3>Listado de Productos</h3>
+    </div>
+    <div class="col-lg-6">
+        <button routerLink="/show" class="btn btn-outline-primary float-end">Ver Productos Defectuosos</button>
+    </div>
+</div>
+<table *ngIf="listProducts.length > 0" class="table table-hover mt-3">
+    <thead>
+        <tr>
+            <th>Identificador</th>
+            <th>Nombre</th>
+            <th>Comentarios</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of listProducts">
+            <td [routerLink]="['/editar', product.id_product]">{{ product.id_product }}</td>
+            <td [routerLink]="['/editar', product.id_product]">{{ product.name_product }}</td>
+            <td>
+                <div *ngIf="product.defective_product == 'Defectuosa'" class="form-check mb-3" [routerLink]="['/editar', product.id_product]">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="checked">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        El Producto Viene Defectuoso
+                    </label>
+                </div>
+                <div *ngIf="product.defective_product == 'no'" class="form-check mb-3" [routerLink]="['/editar', product.id_product]">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        El Producto No Viene Defectuoso
+                    </label>
+                </div>
+            </td>
+            <td>
+            <button (click)="deleteProduct(product.id_product)" class="btn btn-danger btn-sm float-end">Salida</button></td>
+        </tr>
+    </tbody>
+</table>
+<button routerLink="/agregar" class="btn btn-primary">Nueva Entrada</button>
+<div *ngIf="listProducts.length == 0" class="row mt-5">
+    <h5>No Hay Registros</h5>
+</div>
